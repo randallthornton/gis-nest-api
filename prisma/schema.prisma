@@ -25,14 +25,15 @@ model Location {
 }
 
 model Asset {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  movements  Movement[]
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  movements Movement[]
 }
 
 model Movement {
-  id         Int     @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   location   Location @relation(fields: [locationId], references: [id])
   locationId Int
   asset      Asset    @relation(fields: [assetId], references: [id])
