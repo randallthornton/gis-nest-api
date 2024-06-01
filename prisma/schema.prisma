@@ -38,6 +38,7 @@ model Movement {
   locationId Int
   asset      Asset    @relation(fields: [assetId], references: [id])
   assetId    Int
+  timestamp  DateTime @default(now())
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
