@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { MovementsService } from 'src/services/movements.service';
 
 @Controller('movements')
@@ -7,13 +7,21 @@ export class MovementsController {
 
   @Post()
   async createMovement(
-    @Body() body: { assetId: number; locationId: number; timestamp: Date },
+    @Body() body: { assetId: number; locationId: number; timestamp: string },
   ) {
-    return this.movementsService.createMovement(body);
+    return this.movementsService.createMovement({
+      ...body,
+      timestamp: new Date(body.timestamp),
+    });
   }
 
   @Get()
   async getMovements() {
     return this.movementsService.getMovements();
+  }
+
+  @Delete(':id')
+  async deleteMovement(@Param('id') id: string) {
+    return this.movementsService.deleteMovement(+id);
   }
 }

@@ -14,7 +14,13 @@ export class MovementsService {
   }
 
   async getMovements() {
-    return this.prismaService.movement.findMany();
+    return this.prismaService.movement
+    .findMany({
+      include: {
+        asset: true,
+        location: true,
+      },
+    });
   }
 
   async getMovementById(id: number) {
