@@ -25,11 +25,13 @@ model Location {
 }
 
 model Asset {
-  id        Int         @id @default(autoincrement())
-  name      String      @unique
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  movements Movement[]
+  id             Int           @id @default(autoincrement())
+  name           String        @unique
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  movements      Movement[]
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
 }
 
 model Movement {
@@ -41,4 +43,32 @@ model Movement {
   timestamp  DateTime  @default(now())
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
+}
+
+model Organization {
+  id                Int                 @id @default(autoincrement())
+  name              String              @unique
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  assets            Asset[]
+  userOrganizations UserOrganization[]
+}
+
+model User {
+  id                Int                 @id @default(autoincrement())
+  email             String              @unique
+  password          String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  userOrganizations UserOrganization[]
+}
+
+model UserOrganization {
+  id             Int           @id @default(autoincrement())
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         Int
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId Int
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 }

@@ -7,7 +7,13 @@ export class AssetsController {
 
   @Post()
   async createAsset(
-    @Body() body: { name: string; description: string; value: number },
+    @Body()
+    body: {
+      name: string;
+      description: string;
+      value: number;
+      organizationId: number;
+    },
   ) {
     return this.assetsService.createAsset(body);
   }

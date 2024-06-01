@@ -9,6 +9,7 @@ export class AssetsService {
     name: string;
     description: string;
     value: number;
+    organizationId: number;
   }) {
     return this.prismaService.asset.create({ data });
   }
