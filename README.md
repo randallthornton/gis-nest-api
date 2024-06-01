@@ -32,6 +32,10 @@
 $ npm install
 ```
 
+```powershell
+podman compose up -d
+```
+
 ## Running the app
 
 ```bash
