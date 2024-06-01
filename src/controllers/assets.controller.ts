@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { AssetsService } from 'src/services/assets.service';
 
 @Controller('assets')
@@ -15,5 +15,10 @@ export class AssetsController {
   @Get()
   async getAssets() {
     return this.assetsService.getAssets();
+  }
+
+  @Delete(':id')
+  async deleteAsset(@Param('id') id: string) {
+    return this.assetsService.deleteAsset(+id);
   }
 }

@@ -14,31 +14,31 @@ datasource db {
 }
 
 model Location {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   name      String
   latitude  Float
   longitude Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 
   movements Movement[]
 }
 
 model Asset {
-  id        Int        @id @default(autoincrement())
-  name      String     @unique
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
   movements Movement[]
 }
 
 model Movement {
-  id         Int      @id @default(autoincrement())
-  location   Location @relation(fields: [locationId], references: [id])
+  id         Int       @id @default(autoincrement())
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
   locationId Int
-  asset      Asset    @relation(fields: [assetId], references: [id])
+  asset      Asset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
   assetId    Int
-  timestamp  DateTime @default(now())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  timestamp  DateTime  @default(now())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }

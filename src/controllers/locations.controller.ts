@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { LocationsService } from 'src/services/locations.service';
 
 @Controller('locations')
@@ -15,5 +15,10 @@ export class LocationsController {
   @Get()
   async getLocations() {
     return this.locationsService.getLocations();
+  }
+
+  @Delete(':id')
+  async deleteLocation(@Param('id') id: string) {
+    return this.locationsService.deleteLocation(+id);
   }
 }
